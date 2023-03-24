@@ -1,5 +1,4 @@
 % 静止画の高速簡易深度推定(屋内)
-clear all;
 clc;
 img = imread('./img/WIN_20230316_17_12_59_Pro.jpg');
 
@@ -28,7 +27,7 @@ imshow(ref_V ./ max(ref_V,[],"all"))
 title("Otsu's method (3-values)")
 %colorbar
 
-
+tick = tic;
 % sparse defocus blur
 ref_SD = (abs(f_blur(img,4) - (img)));
 ref_SD = ref_SD(:,:,2);
@@ -76,6 +75,7 @@ for i=1:N:im_width-N
     end    
 end
 
+toc(tick)
 %img_FD = f_blur(img_FD,50); 
 
 i=0;
