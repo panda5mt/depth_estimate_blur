@@ -5,7 +5,7 @@ img = imread('./img/WIN_20230316_17_12_59_Pro.jpg');
 % gray = R .* 0.3 + G .* 0.59 + B .* 0.11
 % ref_gray = img(:,:,2);% .* 0.3 + img(:,:,2) .* 0.59 + img(:,:,3) .* 0.11;
 
-% HSV変換し輝度情報だけ使用する
+% HSV変換し、輝度情報だけ使用する
 ref_V = rgb2hsv(img);
 ref_V = ref_V(:,:,3); 
 ref_scale = ref_V;
