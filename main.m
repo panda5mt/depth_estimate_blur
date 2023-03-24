@@ -22,10 +22,11 @@ ref_V(ref_gray_bk < gthresh2) = 2.0;
 ref_V(ref_gray_bk >= gthresh2) = 4.0;
 ref_V(ref_gray_bk >= gthresh1) = 0.0;
 
-figure(1)
-imshow(ref_V ./ max(ref_V,[],"all"))
-title("Otsu's method (3-values)")
-%colorbar
+% 大津の3値化の結果を確認する場合は下記3行をコメントアウト
+% figure(1)
+% imshow(ref_V ./ max(ref_V,[],"all"))
+% title("Otsu's method (3-values)")
+
 
 tick = tic;
 % sparse defocus blur
