@@ -57,7 +57,7 @@ for i=1:N:im_width-N
         if (ker_max > 0) % エッジがある
             if (fill_enable)
                 if edge_factor < ker_max
-                    edge_factor = ker_max;
+                    edge_factor = ker_max; % 近傍のエッジで最大のものを採用
                 end
             else
                 edge_factor = ker_max;
@@ -77,10 +77,9 @@ for i=1:N:im_width-N
 end
 
 toc(tick)
-%img_FD = f_blur(img_FD,50); 
 
-i=0;
-img_FD(img_FD < i) = 0; % remove background noise
+% i=0;
+% img_FD(img_FD < i) = 0; % remove background noise
 
 figure(2)
 colormap('turbo')
