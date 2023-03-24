@@ -2,9 +2,6 @@
 clc;
 img = imread('./img/WIN_20230316_17_12_59_Pro.jpg');
 
-% gray = R .* 0.3 + G .* 0.59 + B .* 0.11
-% ref_gray = img(:,:,2);% .* 0.3 + img(:,:,2) .* 0.59 + img(:,:,3) .* 0.11;
-
 % HSV変換し、輝度情報だけ使用する
 ref_V = rgb2hsv(img);
 ref_V = ref_V(:,:,3); 
@@ -34,7 +31,7 @@ ref_SD = (abs(f_blur(img,4) - (img)));
 ref_SD = ref_SD(:,:,2);
 
 % depth estimation
-% 大津の手法によりセグメントした結果に疎な深度推定を反映させ、
+% 大津の手法によりセグメントした結果に疎(sparse)な深度推定を反映させ、
 % 密(dense)な結果にする
 % 言い換えると、大津の3値化により簡易的に物体検出をし、
 % defocus blurによる結果で塗り絵をしているだけ
