@@ -27,18 +27,23 @@ ref_V = ref_gray_bk;
 ref_V(ref_V > gthresh2) = 0; 
 gthresh = my_graythresh(ref_V);
 
+% 検討パラメータその1
+% ref_V(:) = 0.5;
+% ref_V(ref_gray_bk < gthresh3) = 0.0;
+% ref_V(ref_gray_bk < gthresh2) = 1.5;
+% ref_V(ref_gray_bk < gthresh) = .5;
 
-ref_V(:) = 0.5;
-ref_V(ref_gray_bk < gthresh3) = 0.0;
+% 検討パラメータその2
+ref_V(:) = 0.0;
+ref_V(ref_gray_bk < gthresh3) = 0.5;
 ref_V(ref_gray_bk < gthresh2) = 1.5;
-ref_V(ref_gray_bk < gthresh) = .5;
+ref_V(ref_gray_bk < gthresh) = 0.5;
 
-% 初期検討時パラメータ
-% ref_V(:) = 0.0;
-% ref_V(ref_gray_bk < gthresh3) = 1.0;
+% 検討パラメータその3
+% ref_V(:) = 0.5;
+% ref_V(ref_gray_bk < gthresh3) = 0.0;
 % ref_V(ref_gray_bk < gthresh2) = 2.1;
 % ref_V(ref_gray_bk < gthresh) = 0.5;
-
 
 % 大津の3値化の結果を確認する場合は下記3行をコメントアウト
 % figure(1)
