@@ -1,6 +1,6 @@
 clear all;
 close all;
-vidRD = VideoReader('./img/driverec.mp4','CurrentTime',88);
+vidRD = VideoReader('./img/driverec1.mp4','CurrentTime',1);
 vidWR = VideoWriter('./img/encode','MPEG-4');
 open(vidWR);
 %vidWR.FrameRate = vidRD.FrameRate;
@@ -8,13 +8,17 @@ direction = [0 0 1];
 countr = 0;
 while hasFrame(vidRD)
     img = readFrame(vidRD);
-    img = imrotate(img,-90);
+    %img = imrotate(img,-90); % image processing toolbox
     img = imresize(img, [640 480]);
 %%%%
 % HSV変換し、輝度情報だけ使用する
-ref_V = im2double(rgb2hsv(img));
-ref_V = ref_V(:,:,3); 
-ref_scale = ref_V;
+ref_V = (rgb2hsv(img));
+ref_V = double(ref_V(:,:,3));
+
+% %ref_V = ((ref_V - 16) ./ (240 - 16)) .* 255;
+% ref_scale = ref_V;
+% imagesc((ref_scale))
+% colorbar
 
 % 4値化する(OTSU) 
 ref_gray_bk = ref_V; 
