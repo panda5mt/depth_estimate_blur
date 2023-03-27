@@ -1,6 +1,6 @@
 clear;
 close all;
-vid_read = VideoReader('./img/driverec1.mp4','CurrentTime',80);
+vid_read = VideoReader('./img/driverec1.mp4','CurrentTime',1);
 vid_write = VideoWriter('./img/encode','MPEG-4');
 %vid_write = VideoWriter('./img/encode','Motion JPEG AVI');
 open(vid_write);
