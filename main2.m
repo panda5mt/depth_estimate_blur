@@ -1,6 +1,6 @@
 clear;
 close all;
-vid_read = VideoReader('./img/driverec1.mp4','CurrentTime',1);
+vid_read = VideoReader('./img/driverec1.mp4','CurrentTime',80);
 vid_write = VideoWriter('./img/encode','MPEG-4');
 %vid_write = VideoWriter('./img/encode','Motion JPEG AVI');
 open(vid_write);
@@ -37,17 +37,17 @@ while hasFrame(vid_read)
     % ref_lum(ref_gray_bk < gthresh) = .5;
     
     % 検討パラメータその2
-    ref_lum(:) = 0.0;
+    % ref_lum(:) = 0.0;
+    % ref_lum(ref_gray_bk < gthresh3) = 0.5;
+    % ref_lum(ref_gray_bk < gthresh2) = 2.0;
+    % ref_lum(ref_gray_bk < gthresh) = 0.0;
+    
+    % 検討パラメータその3
+    ref_lum(ref_gray_bk > gthresh3) = 1.0;
+    ref_lum(ref_gray_bk > 0.53) = 0;
     ref_lum(ref_gray_bk < gthresh3) = 0.5;
     ref_lum(ref_gray_bk < gthresh2) = 2.0;
     ref_lum(ref_gray_bk < gthresh) = 0.0;
-    
-    % 検討パラメータその3
-    % ref_lum(ref_gray_bk > 0.5) = 1;
-    % ref_lum(ref_gray_bk > 0.55) = 0;
-    % ref_lum(ref_gray_bk < gthresh3) = 0.5;
-    % ref_lum(ref_gray_bk < gthresh2) = 1.5;
-    % ref_lum(ref_gray_bk < gthresh) = 0.0;
     
     % 大津の3値化の結果を確認する場合は下記3行をコメントアウト
     % figure(1)
