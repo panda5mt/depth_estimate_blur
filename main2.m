@@ -38,7 +38,7 @@ while hasFrame(vid_read)
     % 検討パラメータその2
     ref_lum(:) = 0.0;
     ref_lum(ref_gray_bk < gthresh3) = 0.5;
-    ref_lum(ref_gray_bk < gthresh2) = 1.5;
+    ref_lum(ref_gray_bk < gthresh2) = 2.0;
     ref_lum(ref_gray_bk < gthresh) = 0.0;
     
     % 検討パラメータその3
