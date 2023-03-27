@@ -16,7 +16,7 @@ while hasFrame(vid_read)
     ref_lum = (rgb2hsv(img));
     ref_lum = double(ref_lum(:,:,3));
     
-    % ref_scale = ref_V;
+    % ref_scale = ref_lum;
     % imagesc((ref_scale))
     % colorbar
     
