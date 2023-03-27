@@ -11,7 +11,7 @@ function thresh = my_graythresh(img)
     wB = 0;
     maximum = 0.0;
 
-    hist_counts=hist(img, 0:top-1);
+    [hist_counts,~] = histcounts(img,0:top); 
 
     sum1 = dot(0:top-1, hist_counts);
     for ii = 1:top
