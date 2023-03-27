@@ -1,13 +1,13 @@
 clear all;
 close all;
-vidRD = VideoReader('./img/driverec1.mp4','CurrentTime',1);
-vidWR = VideoWriter('./img/encode','MPEG-4');
-open(vidWR);
+vid_read = VideoReader('./img/driverec1.mp4','CurrentTime',1);
+vid_write = VideoWriter('./img/encode','MPEG-4');%VideoWriter('./img/encode','Motion JPEG AVI');
+open(vid_write);
 %vidWR.FrameRate = vidRD.FrameRate;
 direction = [0 0 1];
 countr = 0;
-while hasFrame(vidRD)
-    img = readFrame(vidRD);
+while hasFrame(vid_read)
+    img = readFrame(vid_read);
     %img = imrotate(img,-90); % image processing toolbox
     img = imresize(img, [640 480]);
 %%%%
@@ -20,7 +20,7 @@ ref_V = double(ref_V(:,:,3));
 % imagesc((ref_scale))
 % colorbar
 
-% 4値化する(OTSU) 
+% n値化する(OTSU) 
 ref_gray_bk = ref_V; 
 gthresh3 = my_graythresh(ref_V);
 ref_V(ref_V > gthresh3) = 0; 
@@ -41,13 +41,15 @@ gthresh = my_graythresh(ref_V);
 ref_V(:) = 0.0;
 ref_V(ref_gray_bk < gthresh3) = 0.5;
 ref_V(ref_gray_bk < gthresh2) = 1.5;
-ref_V(ref_gray_bk < gthresh) = 0.5;
+ref_V(ref_gray_bk < gthresh) = 0.0;
 
 % 検討パラメータその3
-% ref_V(:) = 0.5;
-% ref_V(ref_gray_bk < gthresh3) = 0.0;
-% ref_V(ref_gray_bk < gthresh2) = 2.1;
-% ref_V(ref_gray_bk < gthresh) = 0.5;
+% ref_V(ref_gray_bk > 0.5) = 1;
+% ref_V(ref_gray_bk > 0.55) = 0;
+% ref_V(ref_gray_bk < gthresh3) = 0.5;
+% ref_V(ref_gray_bk < gthresh2) = 1.5;
+% ref_V(ref_gray_bk < gthresh) = 0.0;
+
 
 % 大津の3値化の結果を確認する場合は下記3行をコメントアウト
 % figure(1)
@@ -115,11 +117,11 @@ if countr > 60
     imshow(im)
     drawnow
 end
-writeVideo(vidWR,im);
+writeVideo(vid_write,im);
 
 
 %%%%
 end
 
 
-close(vidWR);
+close(vid_write);

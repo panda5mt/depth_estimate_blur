@@ -1,4 +1,4 @@
-% 高速ぼけ生成用関数(長船Blur)
+% fast blur function(Osafune-Blur)
 function img = f_blur(img, n)
 
     kernel_1d = pascal_1d(n);
