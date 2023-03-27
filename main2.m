@@ -51,7 +51,7 @@ while hasFrame(vid_read)
     % 大津の3値化の結果を確認する場合は下記3行をコメントアウト
     % figure(1)
     % imshow(ref_lum ./ max(ref_lum,[],"all"))
-    % title("Otsu's method (3-values)")
+    % title("Otsu's method (N-values)")
     
     %tick = tic;
     % sparse defocus blur
