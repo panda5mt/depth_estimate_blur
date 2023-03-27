@@ -43,8 +43,7 @@ while hasFrame(vid_read)
     % ref_lum(ref_gray_bk < gthresh) = 0.0;
     
     % 検討パラメータその3
-    ref_lum(ref_gray_bk > gthresh3) = 1.0;
-    ref_lum(ref_gray_bk > 0.53) = 0;
+    ref_lum(:) = 0;
     ref_lum(ref_gray_bk < gthresh3) = 0.5;
     ref_lum(ref_gray_bk < gthresh2) = 2.0;
     ref_lum(ref_gray_bk < gthresh) = 0.0;
@@ -54,7 +53,7 @@ while hasFrame(vid_read)
     % imshow(ref_lum ./ max(ref_lum,[],"all"))
     % title("Otsu's method (N-values)")
     
-    %tick = tic;
+    % tick = tic;
     % sparse defocus blur
     ref_spa = (abs(f_blur(img,4) - (img)));
     ref_spa = ref_spa(:,:,2);
