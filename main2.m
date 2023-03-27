@@ -1,7 +1,8 @@
 clear;
 close all;
 vid_read = VideoReader('./img/driverec1.mp4','CurrentTime',1);
-vid_write = VideoWriter('./img/encode','MPEG-4');%VideoWriter('./img/encode','Motion JPEG AVI');
+vid_write = VideoWriter('./img/encode','MPEG-4');
+%vid_write = VideoWriter('./img/encode','Motion JPEG AVI');
 open(vid_write);
 %vidWR.FrameRate = vidRD.FrameRate;
 
