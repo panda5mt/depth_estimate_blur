@@ -1,6 +1,6 @@
 clear;
 close all;
-vid_read = VideoReader('./img/driverec1.mp4','CurrentTime',1);
+vid_read = VideoReader('./img/driverec1.mp4','CurrentTime',0);
 vid_write = VideoWriter('./img/encode','MPEG-4');
 %vid_write = VideoWriter('./img/encode','Motion JPEG AVI');
 open(vid_write);
@@ -20,23 +20,22 @@ while hasFrame(vid_read)
     % imagesc((ref_scale))
     % colorbar
     
-    %% n値化する(OTSU) 
+    %% OTSU' Method
     ref_gray_bk = ref_lum; 
     gthresh3 = my_graythresh(ref_lum);
     ref_lum(ref_lum > gthresh3) = 0; 
     gthresh2 = my_graythresh(ref_lum);
-    
     ref_lum = ref_gray_bk;
     ref_lum(ref_lum > gthresh2) = 0; 
     gthresh = my_graythresh(ref_lum);
-    
+
     % 検討パラメータその1
     % ref_lum(:) = 0.5;
     % ref_lum(ref_gray_bk < gthresh3) = 0.0;
     % ref_lum(ref_gray_bk < gthresh2) = 1.5;
     % ref_lum(ref_gray_bk < gthresh) = .5;
     
-    % 検討パラメータその2
+    % 検討パラメータその2(パラメータを探る場合、まずこのパラメータで動作させて最適なデータを探る方がよい)
     % ref_lum(:) = 0.0;
     % ref_lum(ref_gray_bk < gthresh3) = 0.5;
     % ref_lum(ref_gray_bk < gthresh2) = 2.0;
@@ -44,6 +43,9 @@ while hasFrame(vid_read)
     
     % 検討パラメータその3
     ref_lum(:) = 0;
+    ref_lum(ref_gray_bk >= 0.54) = 2.0; % ホワイトメタリック塗装車の検出
+    ref_lum(ref_gray_bk >= 0.58) = .0; % これより上はヘッドライトの輝度になる。検出の邪魔。
+    ref_lum(ref_gray_bk >= (1-gthresh3)) = 5.0;% 白線検出
     ref_lum(ref_gray_bk < gthresh3) = 0.5;
     ref_lum(ref_gray_bk < gthresh2) = 2.0;
     ref_lum(ref_gray_bk < gthresh) = 0.0;
@@ -56,7 +58,7 @@ while hasFrame(vid_read)
     % tick = tic;
     % sparse defocus blur
     ref_spa = (abs(f_blur(img,4) - (img)));
-    ref_spa = ref_spa(:,:,2);
+    ref_spa = ref_spa(:,:,1);
     
     %% depth estimation
     % 大津の手法によりセグメントした結果に疎(sparse)な深度推定を反映させ、
@@ -102,7 +104,7 @@ while hasFrame(vid_read)
     end
     %toc(tick)
     
-    i=0; % todo: fix this. this is bias(background noise).
+    i=30; % todo: fix this. this is bias(background noise).
     img_dense(img_dense < i) = 0; % remove background noise
     im = ind2rgb(uint8(img_dense),turbo(190));
     countr = countr + 1;
