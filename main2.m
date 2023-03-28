@@ -45,7 +45,7 @@ while hasFrame(vid_read)
     ref_lum(:) = 0;
     ref_lum(ref_gray_bk >= 0.54) = 2.0; % ホワイトメタリック塗装車の検出
     ref_lum(ref_gray_bk >= 0.58) = .0; % これより上はヘッドライトの輝度になる。検出の邪魔。
-    ref_lum(ref_gray_bk >= (1-gthresh3)) = 5.0;% 白線検出
+    ref_lum(ref_gray_bk >= (1-gthresh3)) = 5.0;% 白線検出(わざと大きめの値にしている)
     ref_lum(ref_gray_bk < gthresh3) = 0.5;
     ref_lum(ref_gray_bk < gthresh2) = 2.0;
     ref_lum(ref_gray_bk < gthresh) = 0.0;
@@ -104,7 +104,7 @@ while hasFrame(vid_read)
     end
     %toc(tick)
     
-    i=30; % todo: fix this. this is bias(background noise).
+    i=10;%30; % todo: fix this. this is bias(background noise).
     img_dense(img_dense < i) = 0; % remove background noise
     im = ind2rgb(uint8(img_dense),turbo(190));
     countr = countr + 1;
