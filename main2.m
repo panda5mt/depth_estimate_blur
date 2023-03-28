@@ -45,7 +45,12 @@ while hasFrame(vid_read)
     ref_lum(:) = 0;
     ref_lum(ref_gray_bk >= 0.54) = 2.0; % ホワイトメタリック塗装車の検出
     ref_lum(ref_gray_bk >= 0.58) = .0; % これより上はヘッドライトの輝度になる。検出の邪魔。
-    ref_lum(ref_gray_bk >= (1-gthresh3)) = 5.0;% 白線検出(わざと大きめの値にしている)
+
+    % 白線検出。わざと大きめの値にしている。
+    % 路上でこの色が多く検出される場合、光量が足りてない。
+    % ECUまたはドライバにヘッドライト点灯指示を通知。    
+    ref_lum(ref_gray_bk >= (1-gthresh3)) = 5.0;
+    
     ref_lum(ref_gray_bk < gthresh3) = 0.5;
     ref_lum(ref_gray_bk < gthresh2) = 2.0;
     ref_lum(ref_gray_bk < gthresh) = 0.0;
