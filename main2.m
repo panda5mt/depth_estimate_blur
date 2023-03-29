@@ -34,13 +34,15 @@ while hasFrame(vid_read)
     % ref_lum(ref_gray_bk < gthresh3) = 0.0;
     % ref_lum(ref_gray_bk < gthresh2) = 1.5;
     % ref_lum(ref_gray_bk < gthresh) = .5;
-    
+    % 検討パラメータその1おわり
+
     % 検討パラメータその2(パラメータを探る場合、まずこのパラメータで動作させて最適なデータを探る方がよい)
     % ref_lum(:) = 0.0;
     % ref_lum(ref_gray_bk < gthresh3) = 0.5;
     % ref_lum(ref_gray_bk < gthresh2) = 2.0;
     % ref_lum(ref_gray_bk < gthresh) = 0.0;
-    
+    % 検討パラメータその2おわり
+
     % 検討パラメータその3
     ref_lum(:) = 0;
     ref_lum(ref_gray_bk >= 0.54) = 2.0; % ホワイトメタリック塗装車の検出
@@ -54,6 +56,7 @@ while hasFrame(vid_read)
     ref_lum(ref_gray_bk < gthresh3) = 0.5;
     ref_lum(ref_gray_bk < gthresh2) = 2.0;
     ref_lum(ref_gray_bk < gthresh) = 0.0;
+    % 検討パラメータその3おわり
     
     % 大津の3値化の結果を確認する場合は下記3行をコメントアウト
     % figure(1)
