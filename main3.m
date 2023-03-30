@@ -1,6 +1,6 @@
 clear;
 close all;
-vid_read = VideoReader('./img/driverec2.mp4','CurrentTime',0);
+vid_read = VideoReader('./img/driverec1.mp4','CurrentTime',0);
 vid_write = VideoWriter('./img/encode','MPEG-4');
 %vid_write = VideoWriter('./img/encode','Motion JPEG AVI');
 open(vid_write);
@@ -52,7 +52,7 @@ while hasFrame(vid_read)
     % sparse defocus blur
     ref_spa = ((img) - f_blur(img,4)).*2;
     ref_spa = ref_spa(:,:,1);
-    e = edge(img(:,:,1),'log'); % あとで手実装する
+    e = edge(im2gray(img),'log'); % あとで手実装する
     
     ref_spa(e == 0) = 0;
 
