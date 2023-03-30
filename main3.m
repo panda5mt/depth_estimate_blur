@@ -1,6 +1,6 @@
 clear;
 close all;
-vid_read = VideoReader('./img/driverec2.mp4','CurrentTime',40);
+vid_read = VideoReader('./img/driverec2.mp4','CurrentTime',120);
 vid_write = VideoWriter('./img/encode','MPEG-4');
 %vid_write = VideoWriter('./img/encode','Motion JPEG AVI');
 open(vid_write);
@@ -61,8 +61,8 @@ while hasFrame(vid_read)
     % sparse defocus blur
     ref_spa = ((img) - f_blur(img,4)).*2;
     ref_spa = ref_spa(:,:,1);
-    e = edge(im2gray(img),'log'); % あとで手実装する
     
+    e = edge(im2gray(img),'log'); % あとで手実装する    
     ref_spa(e == 0) = 0;
 
     
@@ -102,7 +102,7 @@ while hasFrame(vid_read)
                 img_dense(j:j+N-1,i:i+N-1) = double(edge_factor) * pick_matrices ; 
             end
     
-            if mat_sum == 0 % 近傍に物体がない
+            if mat_sum == N^2*0.5 % 近傍に物体がない
                 fill_enable = false; % 塗りつぶしフラグをfalse
                 edge_factor = 0;
             end 
