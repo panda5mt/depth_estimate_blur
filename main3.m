@@ -1,6 +1,6 @@
 clear;
 close all;
-vid_read = VideoReader('./img/driverec1.mp4','CurrentTime',0);
+vid_read = VideoReader('./img/driverec2.mp4','CurrentTime',40);
 vid_write = VideoWriter('./img/encode','MPEG-4');
 %vid_write = VideoWriter('./img/encode','Motion JPEG AVI');
 open(vid_write);
@@ -30,12 +30,21 @@ while hasFrame(vid_read)
     gthresh = my_graythresh(ref_lum);
 
     % 検討パラメータその1
+    % ref_lum(:) = 2.0;
+    % ref_lum(ref_gray_bk < (1+gthresh3)/2) = 0.0;
+    % ref_lum(ref_gray_bk < gthresh3) = 0.5;
+    % ref_lum(ref_gray_bk < gthresh2) = 1.0;
+    % ref_lum(ref_gray_bk < gthresh) = 0.0;
+    % % 検討パラメータその1おわり
+
+    % 検討パラメータその2
     ref_lum(:) = 2.0;
-    ref_lum(ref_gray_bk < (1+gthresh3)/2) = 0.0;
+    ref_lum(ref_gray_bk < (1-gthresh2)) = 1.0;
+    ref_lum(ref_gray_bk < (1-gthresh3)) = 0.0;
     ref_lum(ref_gray_bk < gthresh3) = 0.5;
     ref_lum(ref_gray_bk < gthresh2) = 1.0;
     ref_lum(ref_gray_bk < gthresh) = 0.0;
-    % 検討パラメータその1おわり
+    % 検討パラメータその2おわり
 
     % % 白線検出。わざと大きめの値にしている。
     % % 路上でこの色が多く検出される場合、光量が足りてない。
