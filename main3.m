@@ -7,6 +7,9 @@ open(vid_write);
 %vid_write.FrameRate = vid_read.FrameRate;
 
 countr = 0;
+    
+N = 15; % フィルタ演算する1辺の長さ = N x N (pixel)
+obj_thres = N^2*0.5;% 物体認識の下限閾値
 while hasFrame(vid_read)
     img = readFrame(vid_read);
     %img = imrotate(img,-90); % image processing toolbox
@@ -77,7 +80,6 @@ while hasFrame(vid_read)
     img_dense = zeros(size(ref_spa));
     fill_enable = false;
     edge_factor = 0;
-    N = 15; % フィルタ演算する1辺の長さ = N x N (pixel)
     
     for i=1:N:im_width-N 
         for j=1:N:im_height-N 
@@ -102,7 +104,7 @@ while hasFrame(vid_read)
                 img_dense(j:j+N-1,i:i+N-1) = double(edge_factor) * pick_matrices ; 
             end
     
-            if mat_sum == N^2*0.5 % 近傍に物体がない
+            if mat_sum == obj_thres % 近傍に物体がない
                 fill_enable = false; % 塗りつぶしフラグをfalse
                 edge_factor = 0;
             end 
