@@ -9,7 +9,7 @@ open(vid_write);
 countr = 0;
     
 N = 15; % フィルタ演算する1辺の長さ = N x N (pixel)
-obj_thres = N^2*0;% 物体認識の下限閾値
+obj_thres = N^2*0.8;% 物体認識の下限閾値
 while hasFrame(vid_read)
     img = readFrame(vid_read);
     %img = imrotate(img,-90); % image processing toolbox
