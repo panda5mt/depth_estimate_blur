@@ -9,7 +9,7 @@ open(vid_write);
 countr = 0;
     
 N = 15; % フィルタ演算する1辺の長さ = N x N (pixel)
-obj_thres = N^2*0.5;% 物体認識の下限閾値
+obj_thres = N^2*0;% 物体認識の下限閾値
 while hasFrame(vid_read)
     img = readFrame(vid_read);
     %img = imrotate(img,-90); % image processing toolbox
@@ -63,7 +63,7 @@ while hasFrame(vid_read)
     % tick = tic;
     % sparse defocus blur
     ref_spa = ((img) - f_blur(img,4)).*2;
-    ref_spa = ref_spa(:,:,1);
+    ref_spa = ref_spa(:,:,2);
     
     e = edge(im2gray(img),'log'); % あとで手実装する    
     ref_spa(e == 0) = 0;
