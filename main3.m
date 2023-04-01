@@ -1,15 +1,17 @@
 clear;
 close all;
-vid_read = VideoReader('./img/driverec2.mp4','CurrentTime',120);
+vid_read = VideoReader('./img/driverec2.mp4','CurrentTime',0);
 vid_write = VideoWriter('./img/encode','MPEG-4');
 %vid_write = VideoWriter('./img/encode','Motion JPEG AVI');
 open(vid_write);
 %vid_write.FrameRate = vid_read.FrameRate;
 
-countr = 0;
+countr = 0; 
     
 N = 15; % フィルタ演算する1辺の長さ = N x N (pixel)
-obj_thres = N^2*0.8;% 物体認識の下限閾値
+obj_thres = N^2/4;% 物体認識の下限閾値
+check_image = false; % 数フレームおきに生成画像を目視確認するか？
+
 while hasFrame(vid_read)
     img = readFrame(vid_read);
     %img = imrotate(img,-90); % image processing toolbox
@@ -62,7 +64,7 @@ while hasFrame(vid_read)
     
     % tick = tic;
     % sparse defocus blur
-    ref_spa = ((img) - f_blur(img,4)).*2;
+    ref_spa = ((img) - f_blur(img,4));
     ref_spa = ref_spa(:,:,2);
     
     e = edge(im2gray(img),'log'); % あとで手実装する    
@@ -104,7 +106,7 @@ while hasFrame(vid_read)
                 img_dense(j:j+N-1,i:i+N-1) = double(edge_factor) * pick_matrices ; 
             end
     
-            if mat_sum == obj_thres % 近傍に物体がない
+            if mat_sum <= obj_thres % 近傍に物体がない
                 fill_enable = false; % 塗りつぶしフラグをfalse
                 edge_factor = 0;
             end 
@@ -112,16 +114,20 @@ while hasFrame(vid_read)
     end
     %toc(tick)
     
-    i=10;%30; % todo: fix this. this is bias(background noise).
+    i=0;%30; % todo: fix this. this is bias(background noise).
     img_dense(img_dense < i) = 0; % remove background noise
     im = ind2rgb(uint8(img_dense),turbo(190));
-    countr = countr + 1;
-    if countr > 60
-        countr = 0;
-        figure(2)
-        imshow(im)
-        drawnow
+
+    if check_image
+        countr = countr + 1;
+        if countr > 60
+            countr = 0;
+            figure(2)
+            imshow(im)
+            drawnow
+        end
     end
+
     writeVideo(vid_write,im);
 
 end
