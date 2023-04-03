@@ -1,52 +1,54 @@
 % 静止画の高速簡易深度推定(屋内)
 clc;
 img = imread('./img/WIN_20230316_17_12_59_Pro.jpg');
-
+img = imread('./img/IMG_0826.JPG');
+%img = imresize(img, [640 480]);
 % HSV変換し、輝度情報だけ使用する
-ref_V = rgb2hsv(img);
-ref_V = ref_V(:,:,3); 
-ref_scale = ref_V;
+ref_lum = rgb2hsv(img);
+ref_lum = ref_lum(:,:,3); 
+ref_scale = ref_lum;
 
 % 3値化する(OTSU) 
-ref_gray_bk = ref_V; 
-gthresh1 = my_graythresh(ref_V);
-ref_V(ref_V > gthresh1) = 0; 
+ref_gray_bk = ref_lum; 
+gthresh1 = my_graythresh(ref_lum);
+ref_lum(ref_lum > gthresh1) = 0; 
 
-gthresh2 = my_graythresh(ref_V);
-ref_V = ref_gray_bk;
+gthresh2 = my_graythresh(ref_lum);
+ref_lum = ref_gray_bk;
 
-ref_V(ref_gray_bk < gthresh2) = 2.0;
-ref_V(ref_gray_bk >= gthresh2) = 4.0;
-ref_V(ref_gray_bk >= gthresh1) = 0.0;
+% 屋外晴天時と室内
+ref_lum(ref_gray_bk < gthresh2) = 4.0;
+ref_lum(ref_gray_bk >= gthresh2) = 2.0;
+ref_lum(ref_gray_bk >= gthresh1) = 0.0;
 
 % 大津の3値化の結果を確認する場合は下記3行をコメントアウト
 % figure(1)
-% imshow(ref_V ./ max(ref_V,[],"all"))
-% title("Otsu's method (3-values)")
+% imagesc(ref_lum)
+% colorvar
 
 
 tick = tic;
 % sparse defocus blur
-ref_SD = (abs(f_blur(img,4) - (img)));
-ref_SD = ref_SD(:,:,2);
+ref_spa = (abs(f_blur(img,4) - (img)));
+ref_spa = ref_spa(:,:,2);
 
 % depth estimation
 % 大津の手法によりセグメントした結果に疎(sparse)な深度推定を反映させ、
 % 密(dense)な結果にする
 % 言い換えると、大津の3値化により簡易的に物体検出をし、
 % defocus blurによる結果で塗り絵をしているだけ
-im_width = width(ref_SD);
-im_height = height(ref_SD);
+im_width = width(ref_spa);
+im_height = height(ref_spa);
 
-img_FD = zeros(size(ref_SD));
+img_FD = zeros(size(ref_spa));
 fill_enable = false;
 edge_factor = 0;
 N = 10; % フィルタ演算する1辺の長さ = N x N (pixel)
 
 for i=1:N:im_width-N 
     for j=1:N:im_height-N 
-        pick_defocus =  ref_SD(j:j+N-1,i:i+N-1);
-        pick_matrices = ref_V(j:j+N-1,i:i+N-1);
+        pick_defocus =  ref_spa(j:j+N-1,i:i+N-1);
+        pick_matrices = ref_lum(j:j+N-1,i:i+N-1);
 
         ker_max = max(pick_defocus, [], 'all');
         mat_sum = sum(pick_matrices, 'all');
