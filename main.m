@@ -1,4 +1,4 @@
-% 静止画の高速簡易深度推定(屋内)
+%% 静止画の高速簡易深度推定(屋内)
 clc;
 img = imread('./img/WIN_20230316_17_12_59_Pro.jpg');
 img = imread('./img/IMG_0826.JPG');
@@ -8,7 +8,7 @@ ref_lum = rgb2hsv(img);
 ref_lum = ref_lum(:,:,3); 
 ref_scale = ref_lum;
 
-% 3値化する(OTSU) 
+%% 3値化する(OTSU) 
 ref_gray_bk = ref_lum; 
 gthresh1 = my_graythresh(ref_lum);
 ref_lum(ref_lum > gthresh1) = 0; 
@@ -26,13 +26,19 @@ ref_lum(ref_gray_bk >= gthresh1) = 0.0;
 % imagesc(ref_lum)
 % colorvar
 
-
 tick = tic;
-% sparse defocus blur
+%% sparse defocus blur
 ref_spa = (abs(f_blur(img,4) - (img)));
 ref_spa = ref_spa(:,:,2);
+% e = edge(im2gray(img),'log'); % あとで手実装する    
+% ref_spa(e == 0) = 0;
 
-% depth estimation
+% 輪郭を確認する場合は下記3行をコメントアウト
+% figure(2)
+% imagesc(ref_spa)
+% colorbar
+
+%% depth estimation
 % 大津の手法によりセグメントした結果に疎(sparse)な深度推定を反映させ、
 % 密(dense)な結果にする
 % 言い換えると、大津の3値化により簡易的に物体検出をし、
@@ -80,7 +86,7 @@ toc(tick)
 % i=0;
 % img_FD(img_FD < i) = 0; % remove background noise
 
-figure(2)
+figure(3)
 colormap('turbo')
 imagesc(imresize(uint8(img_FD),2))
 colorbar
