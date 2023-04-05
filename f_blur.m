@@ -15,8 +15,8 @@ function img = f_blur(img, n)
             i(y,:) = conv(i(y,:),kernel_1d,'same');
         end
         for x=1:x_size
-            %i(:,x) = medfilt1(double(i(:,x)),floor(n/3));
-            i(:,x) = conv(i(:,x),kernel_1d,'same');
+            i(:,x) = medfilt1(double(i(:,x)),floor(n/3));
+            %i(:,x) = conv(i(:,x),kernel_1d,'same');
         end
         img(:,:,c) = i;
     end
