@@ -73,6 +73,10 @@ GMSL2ｰUSB3変換を経由し，
     - $\nabla(i_1(x)) = \nabla(i(x) \otimes g(x,\sigma_0))$
 
          $=\nabla \lbrace (Au(x)+B)\otimes g(x,\sigma)\otimes g(x,\sigma_0) \rbrace...(5)$
+    
+    正規分布関数の定義により、
+
+    - $\nabla(i_1(x)) = \frac{A}{\sqrt{2\pi(\sigma^2+\sigma_0^2)}}\cdot\exp\lbrace -\frac{x^2}{2(\sigma^2+\sigma_0^2)}\rbrace$
 
 
 
