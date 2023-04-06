@@ -51,7 +51,7 @@ TIER IV C1カメラのレビューをしていたところ，光学的に良好�
 
 ## アドバンテージ 
 1. 高速化のための工夫    
-先ほども取り上げたとおり，Defocus Blurによる深度推定は大まかに下記の手順を毎フレーム，画像ごとに処理を行う．
+詳細は後述するが，Defocus Blurによる深度推定は大まかに下記の手順を毎フレーム，画像ごとに処理を行う．
 - スパースな深度推定
     - ガウスフィルタのたたみ込み
     - Cannyエッジによる輪郭抽出
@@ -87,7 +87,7 @@ TIER IV C1カメラのレビューをしていたところ，光学的に良好�
     今回は，大津の3値化を行い，簡易セグメンテーションを行っている．
 
 ## 深度推定基本
-1. 参考となる論文は下記2つである
+1. 深度推定において参考となる論文は下記2つである
 
     - [Defocus map estimation from a single image](https://www.sciencedirect.com/science/article/abs/pii/S003132031100094X) (Zhuoらによる)
     - [Fast Defocus Map Estimation](http://www.cs.nthu.edu.tw/~htchen/fdme/)(Chenらによる)
