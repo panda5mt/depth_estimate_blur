@@ -70,19 +70,19 @@ GMSL2ｰUSB3変換を経由し，
 
          = $(Au(x)+B)\otimes g(x,\sigma)\otimes g(x,\sigma_0)...(4) $
     
-    となる。エッジを計算する際、強度勾配を求めるので
+    となる．エッジを計算する際，強度勾配を求めるので
     
     - $\nabla(i_1(x)) = \nabla(i(x) \otimes g(x,\sigma_0))$
 
          $=\nabla \lbrace (Au(x)+B)\otimes g(x,\sigma)\otimes g(x,\sigma_0) \rbrace...(5)$
     
-    正規分布関数の定義により、
+    正規分布関数の定義により，
 
     - $\nabla(i_1(x)) = \frac{A}{\sqrt{2\pi(\sigma^2+\sigma_0^2)}}\cdot\exp\lbrace -\frac{x^2}{2(\sigma^2+\sigma_0^2)}\rbrace...(6)$
 
-         $\sigma_0$ : re-blurガウスカーネルの標準偏差。re-blur scaleとも。
+         $\sigma_0$ : re-blurガウスカーネルの標準偏差．re-blur scaleとも．
     
-    - 元のボケエッジとre-blurエッジとの強度勾配の比を求める。
+    - 元のボケエッジとre-blurエッジとの強度勾配の比を求める．
         
          $\frac{|\nabla i(x)|}{|\nabla i_1(x)|}=\sqrt{\frac{\sigma^2+\sigma_0^2}{\sigma^2}}\cdot\exp \lbrace -(\frac{x^2}{2\sigma^2}-\frac{x^2}{2(\sigma^2+\sigma_0^2)})\rbrace...(7)$
 
@@ -90,11 +90,11 @@ GMSL2ｰUSB3変換を経由し，
 
          $\frac{|\nabla i(0)|}{|\nabla i_1(0)|}=\sqrt{\frac{\sigma^2+\sigma_0^2}{\sigma^2}}\equiv R...(8)$
 
-    - 式 $(6)$、$(8)$からわかるようにエッジ上での強度勾配は振幅 $A,\sigma,\sigma_0$ のみに依存する。従って未知のボケ量 $\sigma$は式 $(8)$から
+    - 式 $(6)$， $(8)$からわかるようにエッジ上での強度勾配は振幅 $A,\sigma,\sigma_0$ のみに依存する．従って未知のボケ量 $\sigma$は式 $(8)$から
 
          $\sigma=\frac{1}{\sqrt{R^2-1}}\sigma_0$
 
-         で求められる。
+         で求められる．
 
 
 
