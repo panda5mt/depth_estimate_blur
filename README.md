@@ -90,6 +90,12 @@ GMSL2ｰUSB3変換を経由し，
 
          $\frac{|\nabla i(0)|}{|\nabla i_1(0)|}=\sqrt{\frac{\sigma^2+\sigma_0^2}{\sigma^2}}\equiv R...(8)$
 
+    - 式 $(6)$、$(8)$からわかるようにエッジ上での強度勾配は振幅 $A,\sigma,\sigma_0$ のみに依存する。従って未知のボケ量 $\sigma$は式 $(8)$から
+
+         $\sigma=\frac{1}{\sqrt{R^2-1}}\sigma_0$
+
+         で求められる。
+
 
 
 
