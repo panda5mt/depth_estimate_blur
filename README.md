@@ -67,7 +67,8 @@ GMSL2ｰUSB3変換を経由し，
     - $i_1(x) = i(x) \otimes g(x,\sigma_0) $ 
 
          = $(Au(x)+B)\otimes g(x,\sigma)\otimes g(x,\sigma_0)$
-
+    
+    となる。エッジを計算する際、強度勾配を求めるので
 
 
 
