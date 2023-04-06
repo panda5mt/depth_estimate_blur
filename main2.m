@@ -17,49 +17,49 @@ while hasFrame(vid_read)
     %img = imrotate(img,-90); % image processing toolbox
     img = imresize(img, [640 480]);
     %%%%
-    %% HSV変換し、輝度情報(V:Luminance)だけ使用する
-    ref_lum = (rgb2hsv(img));
-    ref_lum = double(ref_lum(:,:,3));
-    % ref_lum2 = ref_lum;
-    % ref_scale = ref_lum;
+    %% HSV変換し、輝度情報(V)だけ使用する
+    ref_val = (rgb2hsv(img));
+    ref_val = double(ref_val(:,:,3));
+    % ref_val2 = ref_val;
+    % ref_scale = ref_val;
     % imagesc((ref_scale))
     % colorbar
     
     %% OTSU' Method
-    ref_gray_bk = ref_lum; 
-    gthresh3 = my_graythresh(ref_lum);
-    ref_lum(ref_lum > gthresh3) = 0; 
-    gthresh2 = my_graythresh(ref_lum);
-    ref_lum = ref_gray_bk;
-    ref_lum(ref_lum > gthresh2) = 0; 
-    gthresh = my_graythresh(ref_lum);
+    ref_gray_bk = ref_val; 
+    gthresh3 = my_graythresh(ref_val);
+    ref_val(ref_val > gthresh3) = 0; 
+    gthresh2 = my_graythresh(ref_val);
+    ref_val = ref_gray_bk;
+    ref_val(ref_val > gthresh2) = 0; 
+    gthresh = my_graythresh(ref_val);
 
     % 検討パラメータその1
-    % ref_lum(:) = 2.0;
-    % ref_lum(ref_gray_bk < (1+gthresh3)/2) = 0.0;
-    % ref_lum(ref_gray_bk < gthresh3) = 0.5;
-    % ref_lum(ref_gray_bk < gthresh2) = 1.0;
-    % ref_lum(ref_gray_bk < gthresh) = 0.0;
+    % ref_val(:) = 2.0;
+    % ref_val(ref_gray_bk < (1+gthresh3)/2) = 0.0;
+    % ref_val(ref_gray_bk < gthresh3) = 0.5;
+    % ref_val(ref_gray_bk < gthresh2) = 1.0;
+    % ref_val(ref_gray_bk < gthresh) = 0.0;
     % % 検討パラメータその1おわり
 
     % 検討パラメータその2
-    ref_lum(:) = 2.0;
-    ref_lum(ref_gray_bk < (1-gthresh2)) = 1.0;
-    ref_lum(ref_gray_bk < (1-gthresh3)) = 0.0;
-    ref_lum(ref_gray_bk < gthresh3) = 0.5;
-    ref_lum(ref_gray_bk < gthresh2) = 1.0;
-    ref_lum(ref_gray_bk < gthresh) = 0.0;
+    ref_val(:) = 2.0;
+    ref_val(ref_gray_bk < (1-gthresh2)) = 1.0;
+    ref_val(ref_gray_bk < (1-gthresh3)) = 0.0;
+    ref_val(ref_gray_bk < gthresh3) = 0.5;
+    ref_val(ref_gray_bk < gthresh2) = 1.0;
+    ref_val(ref_gray_bk < gthresh) = 0.0;
     % 検討パラメータその2おわり
 
     % % 白線検出。わざと大きめの値にしている。
     % % 路上でこの色が多く検出される場合、光量が足りてない。
     % % ECUまたはドライバにヘッドライト点灯指示を通知。    
-    % %ref_lum(ref_gray_bk >= (1-gthresh3)) = 5.0;
+    % %ref_val(ref_gray_bk >= (1-gthresh3)) = 5.0;
     
     
     % 大津の3値化の結果を確認する場合は下記3行をコメントアウト
     % figure(1)
-    % imshow(ref_lum ./ max(ref_lum,[],"all"))
+    % imshow(ref_val ./ max(ref_val,[],"all"))
     % title("Otsu's method (N-values)")
     
     % tick = tic;
@@ -86,7 +86,7 @@ while hasFrame(vid_read)
     for i=1:N:im_width-N 
         for j=1:N:im_height-N 
             pick_defocus =  ref_spa(j:j+N-1,i:i+N-1);
-            pick_matrices = ref_lum(j:j+N-1,i:i+N-1);
+            pick_matrices = ref_val(j:j+N-1,i:i+N-1);
     
             ker_max = max(pick_defocus, [], 'all');
             mat_sum = sum(pick_matrices, 'all');
