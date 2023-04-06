@@ -57,7 +57,7 @@ while hasFrame(vid_read)
     % %ref_val(ref_gray_bk >= (1-gthresh3)) = 5.0;
     
     
-    % 大津の3値化の結果を確認する場合は下記3行をコメントアウト
+    % 大津の3値化の結果を確認する場合は下記3行をコメントアウト解除
     % figure(1)
     % imshow(ref_val ./ max(ref_val,[],"all"))
     % title("Otsu's method (N-values)")

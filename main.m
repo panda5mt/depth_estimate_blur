@@ -28,7 +28,7 @@ ref_val(ref_gray_bk < gthresh2) = 4.0;
 ref_val(ref_gray_bk >= gthresh2) = 2.0;
 ref_val(ref_gray_bk >= gthresh1) = 0.0;
 
-% 大津の3値化の結果を確認する場合は下記3行をコメントアウト
+% 大津の3値化の結果を確認する場合は下記3行をコメントアウト解除
 % figure(1)
 % imagesc(ref_val)
 % colorvar
@@ -41,7 +41,7 @@ ref_spa = ref_spa(:,:,2);
 e = edge(im2gray(img),'log'); % あとで手実装する    
 ref_spa(e == 0) = 0;
 
-% 輪郭を確認する場合は下記3行をコメントアウト
+% 輪郭を確認する場合は下記3行をコメントアウト解除
 % figure(2)
 % imagesc(ref_spa)
 % colorbar
