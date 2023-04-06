@@ -76,7 +76,7 @@ GMSL2ｰUSB3変換を経由し，
     
     正規分布関数の定義により、
 
-    - $\nabla(i_1(x)) = \frac{A}{\sqrt{2\pi(\sigma^2+\sigma_0^2)}}\cdot\exp\lbrace -\frac{x^2}{2(\sigma^2+\sigma_0^2)}\rbrace$
+    - $\nabla(i_1(x)) = \frac{A}{\sqrt{2\pi(\sigma^2+\sigma_0^2)}}\cdot\exp\lbrace -\frac{x^2}{2(\sigma^2+\sigma_0^2)}\rbrace...(6)$
 
 
 
