@@ -1,7 +1,7 @@
 %% 静止画の高速簡易深度推定(屋内)
 clc;
 img = imread('./img/C1_PIC1.jpg');
-%img = imread('./img/IMG_0826.JPG');
+img = imread('./img/c1cam_car1.jpg');
 img = imresize(img, [480 640]);
 
 % HSV変換し、輝度情報だけ使用する
@@ -50,7 +50,7 @@ im_height = height(ref_spa);
 img_FD = zeros(size(ref_spa));
 fill_enable = false;
 edge_factor = 0;
-N = 4; % フィルタ演算する1辺の長さ = N x N (pixel)
+N = 10; % フィルタ演算する1辺の長さ = N x N (pixel)
 
 for i=1:N:im_width-N 
     for j=1:N:im_height-N 
