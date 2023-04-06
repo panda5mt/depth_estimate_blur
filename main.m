@@ -4,6 +4,12 @@ clc;
 img = imread('./img/c1cam_car1.jpg');
 img = imresize(img, [480 640]);
 
+%% 調整パラメータ
+% フィルタ演算する1辺の長さ = N x N (pixel)
+N = 10; 
+% 物体が存在しないと判断する閾値
+thres = 0; % N^2*0.25,N^2*0.5など
+
 % HSV変換し、輝度情報だけ使用する
 ref_val = rgb2hsv(img);
 ref_val = ref_val(:,:,3); 
@@ -28,6 +34,7 @@ ref_val(ref_gray_bk >= gthresh1) = 0.0;
 % colorvar
 
 tick = tic;
+
 %% sparse defocus blur
 ref_spa = (img - (f_blur(img,4)));
 ref_spa = ref_spa(:,:,2);
@@ -50,7 +57,7 @@ im_height = height(ref_spa);
 img_FD = zeros(size(ref_spa));
 fill_enable = false;
 edge_factor = 0;
-N = 10; % フィルタ演算する1辺の長さ = N x N (pixel)
+
 
 for i=1:N:im_width-N 
     for j=1:N:im_height-N 
@@ -75,7 +82,7 @@ for i=1:N:im_width-N
             img_FD(j:j+N-1,i:i+N-1) = double(edge_factor) * pick_matrices ; 
         end
 
-        if mat_sum == 0
+        if mat_sum <= thres
             fill_enable = false;
             edge_factor = 0;
         end 
