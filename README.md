@@ -38,8 +38,8 @@ GMSL2ｰUSB3変換を経由し，
 ## 深度推定基本
 1. 参考となる論文は下記2つである
 
-    - あいうえお
-    - かきくけこ
+    - [Defocus map estimation from a single image](https://www.sciencedirect.com/science/article/abs/pii/S003132031100094X) (Zhuo and so on)
+    - [Fast Defocus Map Estimation](http://www.cs.nthu.edu.tw/~htchen/fdme/)(Chen and so on)
 2. 概要
     - 対象物が焦点距離に近い場合，ピントが合っている状態となるが，遠ざかれば遠ざかるほど，ピントは合わなくなる．
     - 画像処理でピントが合っている画像を意図的にボケさせることができる．ガウシアンフィルタ．
