@@ -66,7 +66,7 @@ GMSL2ｰUSB3変換を経由し，
 - 式 $(3)$より，ぼけたエッジを $i(x)$にさらにガウス関数をたたみ込む場合
     - $i_1(x) = i(x) \otimes g(x,\sigma_0) $ 
 
-    - $(Au(x)+B)\otimes g(x,\sigma)\otimesg(x,\sigma_0)$
+    - $(Au(x)+B)\otimes g(x,\sigma)\otimes g(x,\sigma_0)$
 
 
 
