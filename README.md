@@ -84,7 +84,7 @@ GMSL2ｰUSB3変換を経由し，
     
     - 元のボケエッジとre-blurエッジとの強度勾配の比を求める。
         
-         $\frac{|\nabla i(x)|}{|\nabla_1(x)|}$
+         $\frac{|\nabla i(x)|}{|\nabla_1(x)|}=\sqrt{\frac{\sigma^2+\sigma_0^2}{\sigma^2}}\cdot\exp \lbrace -(\frac{x^2}{2\sigma^2}-\frac{x^2}{2(\sigma^2+\sigma_0^2)})\rbrace$
 
 
 
