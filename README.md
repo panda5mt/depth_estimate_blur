@@ -58,10 +58,10 @@ GMSL2ｰUSB3変換を経由し，
     - $g(x,\sigma) = \frac{1}{\sqrt{2\pi}\sigma}\cdot\exp\{-\frac{(x-\mu)^2}{2\sigma^2}\}...(2)$
         
         但し  $\sigma$ :標準偏差、 $\sigma^2$:分散
-- Thin lens modelの場合に限るが、焦点ずれにより生じるボケは鮮明な画像とガウス関数とのたたみ込みでモデル化できる。また偏差 $\sigma$はCoCの $c$に比例するため、 $\sigma = kc$と表現できる。従ってボケのエッジ $i(x)$は下記のように表せる。
+- Thin lens modelの場合に限るが、焦点ずれにより生じるボケは鮮明な画像とガウス関数とのたたみ込みでモデル化できる。また偏差 $\sigma$は$c$に比例するため、 $\sigma = kc$と表現できる。元画像のエッジを $f(x)$ とすると、ボケのエッジ $i(x)$は下記のように表せる。
     - $i(x) = f(x) \otimes g(x,\sigma)...(3) $
 
-    
+
     
 ### Thin Lens Modelの必要性
 Gaussian Filterに近似できる．
