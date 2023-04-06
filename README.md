@@ -70,7 +70,8 @@ GMSL2ｰUSB3変換を経由し，
     
     となる。エッジを計算する際、強度勾配を求めるので
     
-    - $\nabla(i_1(x) = i(x) \otimes g(x,\sigma_0))$ 
+    - $\nabla(i_1(x)) = \nabla(i(x) \otimes g(x,\sigma_0))$ 
+         $=\nabla \lbrace (Au(x)+B)\otimes g(x,\sigma)\otimes g(x,\sigma_0) ...(5) \rbrace$
 
 
 
