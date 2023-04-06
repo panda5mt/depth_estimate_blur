@@ -3,8 +3,8 @@ clc;
 img = imread('./img/C1_PIC1.jpg');
 %img = imread('./img/IMG_0826.JPG');
 img = imresize(img, [480 640]);
-% HSV変換し、輝度情報だけ使用する
 
+% HSV変換し、輝度情報だけ使用する
 ref_val = rgb2hsv(img);
 ref_val = ref_val(:,:,3); 
 ref_scale = ref_val;
