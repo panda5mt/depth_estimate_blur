@@ -80,6 +80,9 @@ GMSL2ｰUSB3変換を経由し，
 
     - $\nabla(i_1(x)) = \frac{A}{\sqrt{2\pi(\sigma^2+\sigma_0^2)}}\cdot\exp\lbrace -\frac{x^2}{2(\sigma^2+\sigma_0^2)}\rbrace...(6)$
 
+         $\sigma_0$ : re-blurガウスカーネルの標準偏差。re-blur scaleとも。
+         
+
 
 
     
