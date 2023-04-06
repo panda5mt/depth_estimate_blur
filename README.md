@@ -88,6 +88,8 @@ GMSL2ｰUSB3変換を経由し，
 
          この比が最大になるのは $x=0$の時であるのは明らかなので
 
+         $\frac{|\nabla i(0)|}{|\nabla i_1(0)|}=\sqrt{\frac{\sigma^2+\sigma_0^2}{\sigma^2}}\equiv R...(8)$
+
 
 
 
