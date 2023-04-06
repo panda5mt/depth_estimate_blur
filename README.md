@@ -57,7 +57,7 @@ GMSL2ｰUSB3変換を経由し，
 - ガウス関数のうち、正規分布表現は以下の式で表される
     - $g(x,\sigma) = \frac{1}{\sqrt{2\pi}\sigma}\cdot\exp\{-\frac{(x-\mu)^2}{2\sigma^2}\}...(2)$
         
-        但し、$ \sigma $ :標準偏差、 $\sigma^2$:分散
+        但し  $\sigma$ :標準偏差、 $\sigma^2$:分散
 
 
 
