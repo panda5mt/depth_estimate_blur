@@ -2,28 +2,29 @@
 clc;
 img = imread('./img/C1_PIC1.jpg');
 %img = imread('./img/IMG_0826.JPG');
-%img = imresize(img, [640 480]);
+img = imresize(img, [480 640]);
 % HSV変換し、輝度情報だけ使用する
-ref_lum = rgb2hsv(img);
-ref_lum = ref_lum(:,:,3); 
-ref_scale = ref_lum;
+
+ref_val = rgb2hsv(img);
+ref_val = ref_val(:,:,3); 
+ref_scale = ref_val;
 
 %% 3値化する(OTSU) 
-ref_gray_bk = ref_lum; 
-gthresh1 = my_graythresh(ref_lum);
-ref_lum(ref_lum > gthresh1) = 0; 
+ref_gray_bk = ref_val; 
+gthresh1 = my_graythresh(ref_val);
+ref_val(ref_val > gthresh1) = 0; 
 
-gthresh2 = my_graythresh(ref_lum);
-ref_lum = ref_gray_bk;
+gthresh2 = my_graythresh(ref_val);
+ref_val = ref_gray_bk;
 
 % 屋外晴天時と室内
-ref_lum(ref_gray_bk < gthresh2) = 4.0;
-ref_lum(ref_gray_bk >= gthresh2) = 2.0;
-ref_lum(ref_gray_bk >= gthresh1) = 0.0;
+ref_val(ref_gray_bk < gthresh2) = 4.0;
+ref_val(ref_gray_bk >= gthresh2) = 2.0;
+ref_val(ref_gray_bk >= gthresh1) = 0.0;
 
 % 大津の3値化の結果を確認する場合は下記3行をコメントアウト
 % figure(1)
-% imagesc(ref_lum)
+% imagesc(ref_val)
 % colorvar
 
 tick = tic;
@@ -49,12 +50,12 @@ im_height = height(ref_spa);
 img_FD = zeros(size(ref_spa));
 fill_enable = false;
 edge_factor = 0;
-N = 20; % フィルタ演算する1辺の長さ = N x N (pixel)
+N = 4; % フィルタ演算する1辺の長さ = N x N (pixel)
 
 for i=1:N:im_width-N 
     for j=1:N:im_height-N 
         pick_defocus =  ref_spa(j:j+N-1,i:i+N-1);
-        pick_matrices = ref_lum(j:j+N-1,i:i+N-1);
+        pick_matrices = ref_val(j:j+N-1,i:i+N-1);
 
         ker_max = max(pick_defocus, [], 'all');
         mat_sum = sum(pick_matrices, 'all');
