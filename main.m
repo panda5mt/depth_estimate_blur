@@ -1,6 +1,6 @@
-%% 静止画の高速簡易深度推定(屋内)
+%% 静止画の高速簡易深度推定
 clc;
-img = imread('./img/C1_PIC1.jpg');
+%img = imread('./img/c1cam_room1.jpg');
 img = imread('./img/c1cam_car1.jpg');
 img = imresize(img, [480 640]);
 
