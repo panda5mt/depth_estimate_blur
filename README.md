@@ -18,9 +18,10 @@ TIER IV C1カメラのレビューをしていたところ，光学的に良好�
 ## コード
 ここからはすべてTIER IV C1カメラで撮像した映像を前提とする．他の撮像デバイスから取得した映像は，ここにあげたコードでの動作は推奨されない．
 
-なお，下記説明はオフラインのMATLABでの動作を前提としているが，ブラウザからMATLAB Onlineでも動作確認ができる．アカウントを取得済みであれば，即導入できるので是非試していただきたい．
-(https://matlab.mathworks.com/open/github/v1?repo=panda5mt/depth_estimate_blur&file=./main.m)
+なお，下記説明はオフラインのMATLABでの動作を前提としているが，[ブラウザからMATLAB Onlineでも動作確認ができる]((https://matlab.mathworks.com/open/github/v1?repo=panda5mt/depth_estimate_blur&file=./main.m)
+)．アカウントを取得済みであれば，即導入できるので是非試していただきたい．
 
+https://matlab.mathworks.com/open/github/v1?repo=panda5mt/depth_estimate_blur&file=./main.m
 1. 静止画での深度推定
     - 動作確認
 
