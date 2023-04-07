@@ -8,7 +8,7 @@ open(vid_write);
 
 countr = 0; 
     
-N = 15; % フィルタ演算する1辺の長さ = N x N (pixel)
+N = 10; % フィルタ演算する1辺の長さ = N x N (pixel)
 obj_thres = N^2/2;% 物体認識の下限閾値
 check_image = true; % 数フレームおきに生成画像を目視確認するか？
 
@@ -64,7 +64,7 @@ while hasFrame(vid_read)
     
     % tick = tic;
     % sparse defocus blur
-    ref_spa = ((img) - f_blur(img,8)).*2;
+    ref_spa = ((img) - f_blur(img,4)).*4;
     ref_spa = ref_spa(:,:,2);
     
     e = edge(im2gray(img),'log'); % あとで手実装する    
