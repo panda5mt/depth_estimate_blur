@@ -54,7 +54,7 @@ ref_spa(e == 0) = 0;
 im_width = width(ref_spa);
 im_height = height(ref_spa);
 
-img_FD = zeros(size(ref_spa));
+img_dense = zeros(size(ref_spa));
 fill_enable = false;
 edge_factor = 0;
 
@@ -79,7 +79,7 @@ for i=1:N:im_width-N
         end
 
         if fill_enable
-            img_FD(j:j+N-1,i:i+N-1) = double(edge_factor) * pick_matrices ; 
+            img_dense(j:j+N-1,i:i+N-1) = double(edge_factor) * pick_matrices ; 
         end
 
         if mat_sum <= thres
@@ -92,11 +92,11 @@ end
 toc(tick)
 
 % i=0;
-% img_FD(img_FD < i) = 0; % remove background noise
+% img_dense(img_dense < i) = 0; % remove background noise
 
 figure(3)
 colormap('turbo')
-imagesc(imresize(uint8(img_FD),2))
+imagesc(imresize(uint8(img_dense),2))
 colorbar
 drawnow
 
