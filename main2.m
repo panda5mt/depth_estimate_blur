@@ -51,6 +51,7 @@ while hasFrame(vid_read)
     ref_val(ref_gray_bk < gthresh) = 0.0;
     % 検討パラメータその2おわり
 
+    
     % % 白線検出。わざと大きめの値にしている。
     % % 路上でこの色が多く検出される場合、光量が足りてない。
     % % ECUまたはドライバにヘッドライト点灯指示を通知。    
@@ -64,7 +65,7 @@ while hasFrame(vid_read)
     
     % tick = tic;
     % sparse defocus blur
-    ref_spa = ((img) - f_blur(img,4)).*4;
+    ref_spa = (f_blur(img,4) - f_blur(img,16)).*4;
     ref_spa = ref_spa(:,:,2);
     
     e = edge(im2gray(img),'log'); % あとで手実装する    
