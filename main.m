@@ -36,10 +36,10 @@ ref_val(ref_gray_bk >= gthresh1) = 0.0;
 tick = tic;
 
 %% sparse defocus blur
-ref_spa = (img - (f_blur(img,8)));
+ref_spa = ((f_blur(img,4)) - (f_blur(img,16)));
 ref_spa = ref_spa(:,:,2);
-e = edge(im2gray(img),'log'); % あとで手実装する    
-ref_spa(e == 0) = 0;
+% e = edge(im2gray(img),'log'); % あとで手実装する    
+% ref_spa(e == 0) = 0;
 
 % 輪郭を確認する場合は下記3行をコメントアウト解除
 % figure(2)
