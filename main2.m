@@ -15,7 +15,7 @@ check_image = true; % 数フレームおきに生成画像を目視確認する�
 while hasFrame(vid_read)
     img = readFrame(vid_read);
     %img = imrotate(img,-90); % image processing toolbox
-    img = imresize(img, [640 480]);
+    img = imresize(img, [480 640]);
     %%%%
     %% HSV変換し、輝度情報(V)だけ使用する
     ref_val = (rgb2hsv(img));
