@@ -1,6 +1,6 @@
 clear;
 close all;
-vid_read = VideoReader('./img/driverec1.mp4','CurrentTime',0);
+vid_read = VideoReader('./img/driverec2.mp4','CurrentTime',0);
 vid_write = VideoWriter('./img/encode','MPEG-4');
 %vid_write = VideoWriter('./img/encode','Motion JPEG AVI');
 open(vid_write);
@@ -85,8 +85,8 @@ while hasFrame(vid_read)
     fill_enable = false;
     edge_factor = 0;
     
-    for i=1:N:im_width-N 
-        for j=1:N:im_height-N 
+    for i=1:1:im_width-N 
+        for j=1:1:im_height-N 
             pick_defocus =  ref_spa(j:j+N-1,i:i+N-1);
             pick_matrices = ref_val(j:j+N-1,i:i+N-1);
     
