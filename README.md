@@ -51,7 +51,8 @@ https://matlab.mathworks.com/open/github/v1?repo=panda5mt/depth_estimate_blur&fi
 
 ## 映像を撮影，録画した環境について
 - TIER IV C1カメラ(FoV:85deg)
-- レッツラノート(Win11)標準のカメラアプリ．[GMSL2-USB3変換](https://tier4.github.io/camera_docs/usb_convert_jp/)を経由している．
+- レッツノートQV1 (Win11)標準のカメラアプリ．[GMSL2-USB3変換](https://tier4.github.io/camera_docs/usb_convert_jp/)を経由している．
+- SUZUKI Swift Sport ZC33S 
 
 ## アドバンテージ 
 1. 高速化のための工夫    
