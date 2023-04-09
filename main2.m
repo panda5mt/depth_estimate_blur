@@ -8,7 +8,7 @@ open(vid_write);
 
 countr = 0; 
     
-N = 10; % フィルタ演算する1辺の長さ = N x N (pixel)
+N = 25; % フィルタ演算する1辺の長さ = N x N (pixel)
 obj_thres = N^2/2;% 物体認識の下限閾値
 check_image = true; % 数フレームおきに生成画像を目視確認するか？
 
@@ -45,7 +45,7 @@ while hasFrame(vid_read)
     % 検討パラメータその2
     ref_val(:) = 2.0;
     ref_val(ref_gray_bk < (1-gthresh2)) = 1.0;
-    ref_val(ref_gray_bk < (1-gthresh3)) = 0.0;
+    ref_val(ref_gray_bk < (1-gthresh3)) = 0; %0.5;
     ref_val(ref_gray_bk < gthresh3) = 0.5;
     ref_val(ref_gray_bk < gthresh2) = 1.0;
     ref_val(ref_gray_bk < gthresh) = 0.0;
@@ -65,8 +65,9 @@ while hasFrame(vid_read)
     
     % tick = tic;
     % sparse defocus blur
-    ref_spa = (f_blur(img,4) - f_blur(img,16)).*4;
-    ref_spa = ref_spa(:,:,2);
+    ref_spa = (f_blur(img,4) - f_blur(img,16)).*2;
+    %ref_spa = ((img) - f_blur(img,16)).*2;    
+    ref_spa = ref_spa(:,:,2); % RGBのうち、G(緑)成分のみ使う
     
     e = edge(im2gray(img),'log'); % あとで手実装する    
     ref_spa(e == 0) = 0;

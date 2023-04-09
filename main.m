@@ -37,9 +37,9 @@ tick = tic;
 
 %% sparse defocus blur
 ref_spa = ((f_blur(img,4)) - (f_blur(img,16)));
-ref_spa = ref_spa(:,:,2);
-% e = edge(im2gray(img),'log'); % あとで手実装する    
-% ref_spa(e == 0) = 0;
+ref_spa = ref_spa(:,:,2);   % RGBのうち、G(緑)成分のみ使う
+e = edge(im2gray(img),'log'); % あとで手実装する    
+ref_spa(e == 0) = 0;
 
 % 輪郭を確認する場合は下記3行をコメントアウト解除
 % figure(2)
