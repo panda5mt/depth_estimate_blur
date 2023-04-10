@@ -1,10 +1,22 @@
 % fast blur function(Osafune-Blur)
-function img = f_blur(img, n)
+function img = f_blur(img, n, mode)
 
-    kernel_1d = pascal_1d(n);
-    k_sum = sum(kernel_1d,"all");
-    kernel_1d = kernel_1d ./k_sum;
-
+    % MODE: 1 = normal(gaussian + median), extended(gaussian + gaussian)
+arguments
+    img
+    n 
+    mode = 1 % normal mode
+end
+    kernel = pascal_1d(n);
+    kernel2 = pascal_1d(floor(n/2));
+    
+    k_sum = sum(kernel,"all");
+    kernel_1d = kernel ./k_sum;
+    
+    if (mode == 2)
+        k_sum = sum(kernel2,"all");
+        kernel_1d2 = kernel2 ./k_sum;
+        end
     x_size = size(img,2);
     y_size = size(img,1);
     z_size = size(img,3);
@@ -15,8 +27,12 @@ function img = f_blur(img, n)
             i(y,:) = conv(i(y,:),kernel_1d,'same');
         end
         for x=1:x_size
+        switch mode
+            case 1
             i(:,x) = medfilt1(double(i(:,x)),floor(n/2));
-            %i(:,x) = conv(i(:,x),kernel_1d,'same');
+            otherwise
+            i(:,x) = conv(i(:,x),kernel_1d2,'same');
+        end
         end
         img(:,:,c) = i;
     end

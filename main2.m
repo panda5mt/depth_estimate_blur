@@ -1,14 +1,19 @@
 clear;
 close all;
-vid_read = VideoReader('./img/driverec2.mp4','CurrentTime',0);
+vid_read = VideoReader('./img/driverec3.mp4','CurrentTime',630);
+%% 出力ビデオ形式の選択
+% オフラインMATLABは下記(mp4形式)
 vid_write = VideoWriter('./img/encode','MPEG-4');
+
+% MATLAB Onlineは下記を有効にする(avi形式.mp4はエラーになるため)
 %vid_write = VideoWriter('./img/encode','Motion JPEG AVI');
+
 open(vid_write);
 %vid_write.FrameRate = vid_read.FrameRate;
 
 countr = 0; 
     
-N = 25; % フィルタ演算する1辺の長さ = N x N (pixel)
+N = 10; % フィルタ演算する1辺の長さ = N x N (pixel)
 obj_thres = N^2/2;% 物体認識の下限閾値
 check_image = true; % 数フレームおきに生成画像を目視確認するか？
 
@@ -65,11 +70,11 @@ while hasFrame(vid_read)
     
     % tick = tic;
     % sparse defocus blur
-    ref_spa = (f_blur(img,4) - f_blur(img,16)).*2;
+    img = img(:,:,2); % RGBのうち、G(緑)成分のみ使う
+    ref_spa = (f_blur(img,4,2) - f_blur(img,16,2)).*2;
     %ref_spa = ((img) - f_blur(img,16)).*2;    
-    ref_spa = ref_spa(:,:,2); % RGBのうち、G(緑)成分のみ使う
     
-    e = edge(im2gray(img),'log'); % あとで手実装する    
+    e = edge((img),'log'); % あとで手実装する    
     ref_spa(e == 0) = 0;
 
     
@@ -85,8 +90,8 @@ while hasFrame(vid_read)
     fill_enable = false;
     edge_factor = 0;
     
-    for i=1:1:im_width-N 
-        for j=1:1:im_height-N 
+    for i=1:floor(N/2):im_width-N 
+        for j=1:floor(N/2):im_height-N 
             pick_defocus =  ref_spa(j:j+N-1,i:i+N-1);
             pick_matrices = ref_val(j:j+N-1,i:i+N-1);
     

@@ -52,7 +52,7 @@ https://matlab.mathworks.com/open/github/v1?repo=panda5mt/depth_estimate_blur&fi
 ## 映像を撮影，録画した環境について
 - TIER IV C1カメラ(FoV:85deg)
 - レッツノートQV1 (Win11)標準のカメラアプリ．[GMSL2-USB3変換](https://tier4.github.io/camera_docs/usb_convert_jp/)を経由している．
-- SUZUKI Swift Sport ZC33S 
+- SUZUKI Swift Sport ZC33S(屋根上15cm) / Swift RS ZC83S(車内フロントガラス貼り付け)
 
 ## アドバンテージ 
 1. 高速化のための工夫    
@@ -75,7 +75,7 @@ https://matlab.mathworks.com/open/github/v1?repo=panda5mt/depth_estimate_blur&fi
 
     ガウスフィルタは通常，1枚の画像につき， $\sigma$を変化させつつ，2ないし4回たたみ込みを行う．
 
-    対する長船blurはこれを[x軸方向，1次元でガウスフィルタ](./f_blur.m#L15)を適用，[y軸方向に1次元でメディアンフィルタを実行](./f_blur.m#L18)，続いて[差分を計算](./main.m#L39)することによりSparseな深度を計算するため，たたみ込み演算に比べて遙かに高速である．[長船によりFPGA向けに設計されたアルゴリズムであり](https://github.com/osafune/)，y軸方向はメディアンを採用したことにより，画像1枚分全部をRAMに保持する必要がなくなる(メディアン長さ分のみ保持すればよい)．組み込み向けデバイスのような省メモリデバイスでも動作し，高速に動作する．
+    対する長船blurはこれを[x軸方向，1次元でガウスフィルタ](./f_blur.m#L27)を適用，[y軸方向に1次元でメディアンフィルタを実行](./f_blur.m#L34)，続いて[差分を計算](./main.m#L39)することによりSparseな深度を計算するため，たたみ込み演算に比べて遙かに高速である．[長船によりFPGA向けに設計されたアルゴリズムであり](https://github.com/osafune/)，y軸方向はメディアンを採用したことにより，画像1枚分全部をRAMに保持する必要がなくなる(メディアン長さ分のみ保持すればよい)．組み込み向けデバイスのような省メモリデバイスでも動作し，高速に動作する．
 - [LoGフィルタ](./main.m#L41-L42) : Cannyエッジ検出器の代替
 
     物体のエッジ情報をある程度均一化し，輪郭を取得するフィルタ．Cannyには劣るものの，カーネル1つで処理ができるため，より高速な処理が期待できる．長船blurと併用しスパースな深度推定をする．
