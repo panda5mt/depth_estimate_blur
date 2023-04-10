@@ -45,9 +45,9 @@ ref_spa(e == 0) = 0;
 %ref_spa = imgaussfilt(im2gray(img),1.3)-imgaussfilt(im2gray(img),1.5);
 
 % 輪郭を確認する場合は下記3行をコメントアウト解除
-figure(2)
-imagesc(ref_spa)
-colorbar
+% figure(2)
+% imagesc(ref_spa)
+% colorbar
 
 %% depth estimation
 % 大津の手法によりセグメントした結果に疎(sparse)な深度推定を反映させ、
