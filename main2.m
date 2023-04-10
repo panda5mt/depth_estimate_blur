@@ -121,8 +121,9 @@ while hasFrame(vid_read)
     end
     %toc(tick)
     
-    i=0;%30; % todo: fix this. this is bias(background noise).
-    img_dense(img_dense < i) = 0; % remove background noise
+    %i=30; % todo: fix this. this is bias(background noise).
+    %img_dense(img_dense < i) = 0; % remove background noise
+    
     im = ind2rgb(uint8(img_dense),turbo(190));
 
     if check_image
