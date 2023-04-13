@@ -1,7 +1,7 @@
 %% 静止画の高速簡易深度推定
 clc;
 %img = imread('./img/c1cam_room1.jpg');
-img = imread('./img/c1cam_car1.jpg');
+img = imread('./img/encode02.png');
 img = imresize(img, [480 640]);
 
 %% 調整パラメータ
