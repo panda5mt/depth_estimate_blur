@@ -3,25 +3,28 @@ clear; close; clc;
 
 check_blur = false;
 
-img = imread('./img/encode01.png');
+vid_read = VideoReader('./img/driverec.mp4','CurrentTime',640);
+if hasFrame(vid_read)
+    
+img = readFrame(vid_read);
 img = imresize(img, [480 640]);
-while true
-figure(1)
 
-if check_blur
-    B = f_blur(im2gray(img), 3, 2) - f_blur(im2gray(img), 15, 2);
-    e = edge(im2gray(img),'log');
-    B(e==0)=0;
-    imagesc(B.*5)
-else
-    imshow(img)
 end
+
+figure(1)
+imshow(img)
+
 rect = drawrectangle('Label','distance-estimate','Color',[1 0 0]);
-roi1 = rect.Position;
-
-imgCrop = imcrop(img,roi1);
-[Y,Z] = roi_calc(imgCrop); % Y:推定距離、Z:分散。 Zが小さい場合(今回は11以下)、深度推定データとしての信頼性は低い
-a = ['dist=' num2str(Y) ', var=' num2str(Z)];
-disp(a);
-
+roi1 = rect.Position; % 囲った部分を記憶
+roi1
+while hasFrame(vid_read)
+    img = readFrame(vid_read);
+    img = imresize(img, [480 640]);
+    rgb = insertShape(img,"rectangle",roi1,LineWidth=5);
+    imshow(rgb)
+    
+    imgCrop = imcrop(img,roi1);
+    [Y,Z] = roi_calc(imgCrop); % Y:推定距離、Z:分散。 Zが小さい場合(今回は11以下)、深度推定データとしての信頼性は低い
+    a = ['gauss_ave=' num2str(Y) ', var=' num2str(Z)];
+    disp(a);
 end
