@@ -1,4 +1,7 @@
 %% 弱いストラクチャ部分を検出し、強いストラクチャからの深度情報を反映させるプログラム
+% Cited paper:"Blind Photograph Watermarking with Robust Defocus-Based JND Model"
+% https://www.hindawi.com/journals/wcmc/2020/8892349/
+
 clear;
 clc; 
 
