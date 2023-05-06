@@ -5,7 +5,7 @@
 clear;
 clc; 
 
-img = imread('./img/encode01.png');
+img = imread('./img/c1cam_room.jpg');
 img = imresize(img, [960 1280]);
 img = im2double(im2gray(img)); 
 
@@ -98,18 +98,19 @@ S = (log10(abs(ELM)) - log10(abs(EMM))) / ((log10(0.85)-log10(1.))); % TODO: fix
 % 合成
 %DM = (EE > 0) .* EE + (EE <= 0).* S;
 DM  = S;
-DMAP = log10(abs(DM));
 
+DMAP = f_blur(DM,20,1);
+DMAP = log10(abs(DMAP));
+%DMAP(DMAP < 1.05) = 0;
 % 表示
 figure(4);
-cl = [0.5 2.5]; % clim
+cl = [0.5 3]; % clim
 tiledlayout(1,2)
 nexttile
-imagesc(EE);colormap(jet);clim(cl);title('sparse by DCT');
+imagesc(EE);colormap(jet);title('sparse by DCT');
 nexttile
 imagesc(DMAP);colormap(jet);clim(cl);colorbar;title('dense by DCT');
 drawnow;
-
 
 
 %DM = get_dfm(img,DM,5);
