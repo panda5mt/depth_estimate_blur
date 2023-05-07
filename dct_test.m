@@ -1,10 +1,10 @@
 %% 弱いストラクチャ部分を検出し、強いストラクチャからの深度情報を反映させるプログラム
-% Cited paper:"Blind Photograph Watermarking with Robust Defocus-Based JND Model"
+% inspired paper:"Blind Photograph Watermarking with Robust Defocus-Based JND Model"
 % https://www.hindawi.com/journals/wcmc/2020/8892349/
 clear;
 clc; 
 
-img = imread('./img/c1cam_room.jpg');
+img = imread('./img/encode01.png');
 img = imresize(img, [960 1280]);
 %img = imresize(img, [480 640]);
 img = im2double(im2gray(img)); 
@@ -29,7 +29,6 @@ B2 = blockproc(B,[8 8],@(block_struct) mask .* block_struct.data);
 ETM = []; % Matrix of ET
 ELM = []; % Matrix of EL
 EMM = []; % Matrix of EM
-ACM = []; % Matrix of AC Coeff
 
 for xx=1:8:size(B2,2)
     for yy=1:8:size(B2,1)
@@ -80,10 +79,10 @@ S_EMM = EMM;
 S_ELM(~STB) = 0;
 S_EMM(~STB) = 0;
 
-S_ELM = (S_ELM < (C0 .* C.^0.40)) .* S_ELM; 
-S_EMM = (S_EMM < (C0 .* C.^0.25)) .* S_EMM; 
+%S_ELM = (S_ELM < (C0 .* C.^0.40)) .* S_ELM; 
+%S_EMM = (S_EMM < (C0 .* C.^0.25)) .* S_EMM; 
 EE = (S_ELM + S_EMM) ;  % Equation (14)
-
+EE = S_ELM;
 %% Calc DM on WTB
 ELM(~WTB) = 0;
 EMM(~WTB) = 0;
@@ -104,11 +103,11 @@ DMAP = f_blur(DM,10,1); % if size(image) <= (480,640), n = 8 or less.
 DMAP = log10(abs(DMAP));
 %DMAP(DMAP < 1.05) = 0;
 % 表示
-figure(4);
-cl = [0.5 2]; % clim
+figure(1);
+cl = [0.5 4]; % clim
 tiledlayout(1,2)
 nexttile
-imagesc(EE);colormap(jet);title('sparse by DCT');
+imagesc(EE);colormap(jet);clim(cl);colorbar;title('sparse by DCT');
 nexttile
 imagesc(DMAP);colormap(jet);clim(cl);colorbar;title('dense by DCT');
 drawnow;
