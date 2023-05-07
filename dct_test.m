@@ -1,12 +1,12 @@
 %% 弱いストラクチャ部分を検出し、強いストラクチャからの深度情報を反映させるプログラム
 % Cited paper:"Blind Photograph Watermarking with Robust Defocus-Based JND Model"
 % https://www.hindawi.com/journals/wcmc/2020/8892349/
-
 clear;
 clc; 
 
 img = imread('./img/c1cam_room.jpg');
 img = imresize(img, [960 1280]);
+%img = imresize(img, [480 640]);
 img = im2double(im2gray(img)); 
 
 T = dctmtx(8);
@@ -99,12 +99,13 @@ S = (log10(abs(ELM)) - log10(abs(EMM))) / ((log10(0.85)-log10(1.))); % TODO: fix
 %DM = (EE > 0) .* EE + (EE <= 0).* S;
 DM  = S;
 
-DMAP = f_blur(DM,20,1);
+% Osafune Blur
+DMAP = f_blur(DM,10,1); % if size(image) <= (480,640), n = 8 or less. 
 DMAP = log10(abs(DMAP));
 %DMAP(DMAP < 1.05) = 0;
 % 表示
 figure(4);
-cl = [0.5 3]; % clim
+cl = [0.5 2]; % clim
 tiledlayout(1,2)
 nexttile
 imagesc(EE);colormap(jet);title('sparse by DCT');
