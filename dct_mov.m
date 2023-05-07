@@ -5,9 +5,9 @@ clear;
 clc; 
 out_mov = true;
 
-vid_read = VideoReader('./img/driverec.mp4','CurrentTime',650);
+vid_read = VideoReader('./img/driverec.mp4','CurrentTime',350);
 if out_mov
-    vid_write = VideoWriter('./img/encode01','MPEG-4');
+    vid_write = VideoWriter('./img/encode00','MPEG-4');
     open(vid_write);
 end
 
@@ -89,7 +89,7 @@ end
     %S_ELM = (S_ELM < (C0 .* C.^0.40)) .* S_ELM; 
     %S_EMM = (S_EMM < (C0 .* C.^0.25)) .* S_EMM; 
     EE = (S_ELM + S_EMM) ;  % Equation (14)
-    EE = S_ELM;
+    EE = S_EMM;
     %% Calc DM on WTB
     ELM(~WTB) = 0;
     EMM(~WTB) = 0;
