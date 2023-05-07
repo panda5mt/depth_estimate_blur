@@ -16,6 +16,7 @@ TIER IV C1カメラのレビューをしていたところ，光学的に良好�
 を取り上げていく．
 
 ## コード
+### フィルタによる深度推定手法
 ここからはすべてTIER IV C1カメラで撮像した映像を前提とする．他の撮像デバイスから取得した映像は，ここにあげたコードでの動作は推奨されない．
 
 なお，下記説明はオフラインのMATLABでの動作を前提としているが，[ブラウザからMATLAB Onlineでも動作確認ができる](https://matlab.mathworks.com/open/github/v1?repo=panda5mt/depth_estimate_blur&file=./main.m)
@@ -41,9 +42,10 @@ https://matlab.mathworks.com/open/github/v1?repo=panda5mt/depth_estimate_blur&fi
         物体が存在していないはずのところを深度推定している場合は $thres$を0より大きくすると解決することがある．( $0\le thres \le N^2 \times \frac{1}{2}$)
 
 
-2. 動画での深度推定
-    
-    準備中
+### DCTを用いた周波数領域からの深度推定
+離散コサイン変換(DCT)を利用し，sparse(疎)な深度推定とdense(密)な深度推定を行う手法．画像を8x8のブロックに分割しDCTを適用し，条件に応じて，疎，密それぞれを計算する．工夫次第では扱うデータを1/64まで圧縮できるので，限られたメモリの環境ではこちらの手法を取ることも考えられる．
+
+
 
 ## TIER IV C1カメラとは
 - [自動運転&モビリティ向け車載HDRカメラ](https://www.paltek.co.jp/solution/tier4/index.html)だよすごいねぇぇぇぇぇぇ．
